@@ -1,5 +1,6 @@
 package com.wscsports.android.blaze.sampleapp.stories
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,9 @@ import androidx.fragment.app.Fragment
 import com.blaze.blazesdk.ads.custom_native.models.BlazeStoriesAdsConfigType
 import com.blaze.blazesdk.data_source.BlazeDataSourceType
 import com.blaze.blazesdk.data_source.BlazeWidgetLabel
+import com.blaze.blazesdk.delegates.BlazeWidgetDelegate
+import com.blaze.blazesdk.delegates.models.BlazePlayerType
+import com.blaze.blazesdk.shared.BlazeSDK
 import com.blaze.blazesdk.style.players.stories.BlazeStoryPlayerStyle
 import com.blaze.blazesdk.style.widgets.BlazeWidgetLayout
 import com.wscsports.android.blaze.sampleapp.R
@@ -97,7 +101,16 @@ class StoriesFragment : Fragment(R.layout.fragment_stories) {
             playerStyle = storiesPlayerPreset,
             dataSource = BlazeDataSourceType.Labels(BlazeWidgetLabel.singleLabel("live-stories")),
             widgetId = "live-stories-row",
-            widgetDelegate = Delegates.widgetDelegate,
+            widgetDelegate = object : BlazeWidgetDelegate {
+                override fun onPlayerDidAppear(playerType: BlazePlayerType, sourceId: String?) {
+                    super.onPlayerDidAppear(playerType, sourceId)
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Test dialog")
+                        .setPositiveButton("OK") { _, _ -> BlazeSDK.resumeCurrentPlayer()}
+                        .show()
+                    BlazeSDK.pauseCurrentPlayer()
+                }
+            },
             shouldOrderWidgetByReadStatus = true
         )
     }
