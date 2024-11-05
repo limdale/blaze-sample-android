@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.blaze.blazesdk.data_source.BlazeDataSourceType
 import com.blaze.blazesdk.data_source.BlazeWidgetLabel
+import com.blaze.blazesdk.delegates.models.BlazeCTAActionType
 import com.blaze.blazesdk.features.stories.widgets.compose.BlazeComposeWidgetStoriesStateHandler
 import com.blaze.blazesdk.features.stories.widgets.compose.row.BlazeComposeStoriesWidgetRowView
 import com.blaze.blazesdk.shared.results.BlazeResult
@@ -67,17 +68,17 @@ class RecentLeaguesFragment : Fragment() {
         logd("onWidgetPlayerDismissed - widgetId => $widgetId")
     }
 
-    private fun onTriggerCTA(widgetId: String, actionType: String, actionParam: String): Boolean {
+    private fun onTriggerCTA(widgetId: String, actionType: BlazeCTAActionType, actionParam: String): Boolean {
         logd("onTriggerCTA - widgetId => $widgetId, actionType => $actionType, actionParam => $actionParam")
 
         return when (actionType) {
 
-            "Deeplink" -> {
+            BlazeCTAActionType.DEEPLINK -> {
                 //return true as if this was handled by App and not SDK
                 false
             }
 
-            "Web" -> {
+            BlazeCTAActionType.WEB -> {
                 //return true as if this was not handled by App and should be handled by SDK
                 true
             }
