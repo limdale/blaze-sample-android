@@ -1,5 +1,6 @@
 package com.wscsports.android.blaze.sampleapp.ads.gam
 
+import android.os.Bundle
 import android.util.Log
 import com.blaze.blazesdk.ads.custom_native.BlazeGoogleCustomNativeAdsHandler
 import com.blaze.gam.custom_native.BlazeCustomNativeAdData
@@ -8,6 +9,12 @@ import com.blaze.gam.custom_native.BlazeGAMCustomNativeAdsDelegate
 object CustomNativeAdsDelegate : BlazeGAMCustomNativeAdsDelegate {
 
     override val customGAMTargetingProperties: Map<String, String> = emptyMap()
+
+    override val publisherProvidedId: String?
+        get() = null
+
+    override val networkExtras: Bundle?
+        get() = null
 
     override fun onGAMCustomNativeAdError(errMsg: String) {
         Log.d("CustomNativeAdsDelegate", "onGAMCustomNativeAdError: Error on ad - $errMsg")

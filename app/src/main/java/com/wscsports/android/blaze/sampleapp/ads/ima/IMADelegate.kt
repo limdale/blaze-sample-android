@@ -29,4 +29,9 @@ object IMADelegate : BlazeIMADelegate {
         Log.d("onIMAAdEvent", "eventType - ${eventType.name}, adInfo - $adInfo")
     }
 
+    override fun overrideAdTagUrl(): String? {
+        // Optional implementation. You can use this to override the ad tag URL.
+        return null
+    }
+
 }
